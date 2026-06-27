@@ -24,3 +24,6 @@ scripts/perovskite_fractions_model.json
 # OS / editor cruft
 .DS_Store
 Thumbs.db
+
+# Manuscript / paper draft — kept local only, not on GitHub
+manuscript/

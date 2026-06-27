@@ -1,13 +1,14 @@
 # Honest Evaluation of Machine-Learned Band Gaps
 
-Code, data-generation, and manuscript for:
+Code and data generation for:
 
 > **How Standard Evaluation Choices Overstate Machine-Learned Band-Gap Performance —
 > and a Simple Two-Stage Correction**
 > Evan Solecki and Peifen Zhu, University of Missouri.
 
-This repository is the fully reproducible companion to the paper: every table and figure
-regenerates from the scripts here. The work is a **methods / benchmarking** study (it does
+This repository holds the reproducible code: every table and figure in the paper regenerates
+from the scripts here. (The manuscript text is maintained separately and is not part of this
+repository.) The work is a **methods / benchmarking** study (it does
 not propose a new algorithm) showing how two routine evaluation choices inflate reported
 band-gap accuracies across **six public datasets**, and what honest reporting changes.
 
@@ -33,7 +34,6 @@ shows most of the apparent two-stage gain comes from the *features*, not the arc
 | Path | Contents |
 |------|----------|
 | `scripts/` | All analysis (CV, nested CV, ablation, grouped splits, learning curves, SHAP, the six-dataset runs) |
-| `manuscript/` | The paper in Markdown (`manuscript.md`) with generators for Word (`make_docx.py`) and LaTeX/PDF (`make_tex.py`); ready-to-submit packages under `Digital Discovery/`, `Computational Materials Science/`, and `Preprint/` |
 | `reports/` | A standalone six-dataset Word report |
 | `plots/` | Figures (parity plots, generalization, solid-solution correlation, SHAP, learning curves) |
 | `data/` | Datasets — **not tracked in git** (large); obtained via `matminer`, except the authors' own `Tol_screened_ensemble_final.csv` |
@@ -60,10 +60,6 @@ python -m venv .venv
 # regenerate every table and figure
 .venv/Scripts/python.exe scripts/reproduce_all.py            # full
 .venv/Scripts/python.exe scripts/reproduce_all.py --quick    # skip the slow CV sweeps
-
-# rebuild the manuscript (Word + LaTeX/PDF) from manuscript.md
-.venv/Scripts/python.exe manuscript/make_docx.py
-.venv/Scripts/python.exe manuscript/make_tex.py
 ```
 
 Scripts resolve data via `DATA_DIR = <repo>/data`, so they run from any working directory.
