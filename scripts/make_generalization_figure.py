@@ -17,15 +17,16 @@ import numpy as np
 DATA = {
     "Tol perovskites\n(overall MAE)": [0.0148, 0.0176, 0.0242],
     "expt_gap (experimental)\n(non-zero MAE)": [0.292, 0.435, 0.454],
+    "Double perovskites\n(overall MAE)": [0.246, 0.255, 0.248],
     "Wolverton oxides\n(non-zero MAE)": [0.334, 0.326, 0.340],
     "Castelli perovskites\n(non-zero MAE)": [0.585, 0.570, 0.586],
 }
 SPLITS = ["random", "by-composition", "by-chemistry"]
 
-fig, ax = plt.subplots(figsize=(8.5, 4.6))
+fig, ax = plt.subplots(figsize=(9.5, 4.7))
 x = np.arange(len(SPLITS))
-width = 0.20
-colors = ["#4C72B0", "#C44E52", "#DD8452", "#55A868"]
+width = 0.16
+colors = ["#4C72B0", "#C44E52", "#8172B3", "#DD8452", "#55A868"]
 
 n = len(DATA)
 for i, (name, maes) in enumerate(DATA.items()):
@@ -41,7 +42,7 @@ ax.set_xticklabels(SPLITS)
 ax.set_ylabel("MAE relative to random split")
 ax.set_title("Random-split optimism is dataset-dependent\n"
              "(large on Tol grid & experimental expt_gap; "
-             "negligible on Wolverton/Castelli)", fontsize=11)
+             "negligible on the three low-redundancy sets)", fontsize=11)
 ax.set_ylim(0.9, 1.8)
 ax.legend(fontsize=8, loc="upper left")
 fig.tight_layout()
