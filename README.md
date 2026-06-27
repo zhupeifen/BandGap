@@ -19,6 +19,9 @@ python -m venv .venv
 # source .venv/bin/activate && pip install -r requirements.txt # macOS/Linux
 ```
 
+`requirements.txt` lists the direct dependencies; `requirements-lock.txt` pins the
+exact versions used (`pip install -r requirements-lock.txt`) for byte-reproducible runs.
+
 Run any script with the venv's Python, e.g.:
 
 ```bash
@@ -27,6 +30,18 @@ Run any script with the venv's Python, e.g.:
 
 Each script resolves its data via `DATA_DIR = <repo>/data`, so it works regardless
 of the current working directory.
+
+### Reproduce everything
+
+Regenerate every manuscript table and figure in one command:
+
+```bash
+.venv/Scripts/python.exe scripts/reproduce_all.py          # full
+.venv/Scripts/python.exe scripts/reproduce_all.py --quick  # skip the slow CV sweeps
+```
+
+The manuscript itself is regenerated from `manuscript/manuscript.md` via
+`manuscript/make_docx.py` (Word) and `manuscript/make_tex.py` (LaTeX/PDF).
 
 ### Data
 
