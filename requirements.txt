@@ -4,3 +4,4 @@ pymatgen
 openpyxl
 seaborn
 shap
+python-docx
