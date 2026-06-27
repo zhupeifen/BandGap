@@ -21,7 +21,7 @@ from sklearn.model_selection import KFold, GroupKFold
 from matminer.utils.io import load_dataframe_from_json
 from pymatgen.core import Composition
 
-from cv_evaluation import (load_wolverton, load_castelli, metrics,
+from cv_evaluation import (load_wolverton, load_castelli, load_expt_gap, metrics,
                            DATA_DIR, NONMETAL_THRESHOLD, N_SPLITS, SEED)
 
 warnings.filterwarnings("ignore")
@@ -97,3 +97,5 @@ if __name__ == "__main__":
     run(name, X_full, y, "wolverton_oxides.json")
     name, _, X_full, y, _ = load_castelli()
     run(name, X_full, y, "castelli_perovskites.json")
+    name, _, X_full, y, _ = load_expt_gap()
+    run(name, X_full, y, "expt_gap.json")

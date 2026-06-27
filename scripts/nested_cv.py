@@ -22,7 +22,7 @@ import xgboost as xgb
 from sklearn.model_selection import KFold
 from scipy import stats
 
-from cv_evaluation import load_wolverton, load_castelli, metrics, SEED
+from cv_evaluation import load_wolverton, load_castelli, load_expt_gap, metrics, SEED
 
 warnings.filterwarnings("ignore")
 
@@ -124,6 +124,6 @@ def run(name, X, y, base_cfg):
 
 
 if __name__ == "__main__":
-    for loader in (load_wolverton, load_castelli):
+    for loader in (load_wolverton, load_castelli, load_expt_gap):
         name, _X_base, X_full, y, base_cfg = loader()
         run(name, X_full, y, base_cfg)

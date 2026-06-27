@@ -83,6 +83,15 @@ def load_castelli():
     return "Castelli perovskites", base_num, X_full, y, base_cfg
 
 
+def load_expt_gap():
+    # Experimental band gaps (Zhuo et al.); composition-only, so X_base == X_full.
+    df = load_dataframe_from_json(str(DATA_DIR / "expt_gap.json")).reset_index(drop=True)
+    y = num(df["gap expt"]).to_numpy()
+    X = magpie(df["formula"]).astype(float)
+    base_cfg = dict(n_estimators=300, max_depth=6, learning_rate=0.05)
+    return "Expt gap (experimental)", X, X, y, base_cfg
+
+
 def metrics(pred, y_te):
     err = np.abs(pred - y_te)
     nz = y_te > 0
@@ -145,5 +154,5 @@ def run_dataset(name, X_base, X_full, y, base_cfg):
 
 
 if __name__ == "__main__":
-    for loader in (load_wolverton, load_castelli):
+    for loader in (load_wolverton, load_castelli, load_expt_gap):
         run_dataset(*loader())
