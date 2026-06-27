@@ -41,9 +41,9 @@ ax.axhline(1.0, color="gray", lw=1, ls="--", zorder=0)
 ax.set_xticks(x)
 ax.set_xticklabels(SPLITS)
 ax.set_ylabel("MAE relative to random split")
-ax.set_title("Random-split optimism scales with compositional redundancy\n"
-             "(large: Tol, expt_gap; moderate: MP gap; "
-             "negligible: low-redundancy sets)", fontsize=11)
+ax.set_title("Random-split optimism is concentrated on solid-solution datasets\n"
+             "(large: Tol, expt_gap; mild: MP gap; "
+             "negligible: discrete-compound sets)", fontsize=11)
 ax.set_ylim(0.9, 1.8)
 ax.legend(fontsize=8, loc="upper left")
 fig.tight_layout()
