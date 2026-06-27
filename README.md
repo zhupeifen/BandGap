@@ -85,6 +85,10 @@ A preprint/DOI will be added on posting. For now, please cite this repository an
 forthcoming paper by Solecki & Zhu (University of Missouri). An archival Zenodo DOI will be
 minted from a tagged release.
 
+## License
+
+Released under the [MIT License](LICENSE).
+
 ## Acknowledgement
 
 Supported by the University of Missouri through a Faculty Startup Fund.
