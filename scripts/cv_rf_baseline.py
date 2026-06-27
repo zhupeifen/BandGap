@@ -78,3 +78,4 @@ def run(name, X, y):
 if __name__ == "__main__":
     run("Wolverton oxides", *load_magpie_only("wolverton_oxides.json", "gap pbe"))
     run("Castelli perovskites", *load_magpie_only("castelli_perovskites.json", "gap gllbsc"))
+    run("Expt gap (experimental)", *load_magpie_only("expt_gap.json", "gap expt"))
