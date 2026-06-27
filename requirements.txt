@@ -1,0 +1,6 @@
+xgboost
+matminer
+pymatgen
+openpyxl
+seaborn
+shap
