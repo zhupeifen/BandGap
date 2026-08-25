@@ -1,0 +1,12 @@
+{
+  "title": "BandGap: Evaluation of machine-learned band gaps — two-stage modeling and the effects of data representation and split strategy (code and stored results)",
+  "upload_type": "software",
+  "description": "Analysis code, SLURM job scripts, environment files and stored result files for the manuscript \"Evaluation of Machine-Learned Band Gaps: Two-Stage Modeling and the Effects of Data Representation and Split Strategy\" (Solecki & Zhu, Computational Materials Science, manuscript COMMAT-D-26-02664). Includes the two-stage classify-then-regress XGBoost pipeline, nested and grouped cross-validation, feature ablation and SHAP analyses, the tabular regressor comparison, CGCNN / MEGNet-style / ALIGNN-style graph networks with five-seed runs, cross-dataset transfer with bias correction, pooled multi-fidelity training, and a command-line diagnostic utility. Datasets are obtained via matminer (scripts/fetch_data.py) and the Materials Data Facility.",
+  "creators": [
+    {"name": "Solecki, Evan", "affiliation": "University of Missouri"},
+    {"name": "Zhu, Peifen", "affiliation": "University of Missouri", "orcid": "0000-0002-5269-541X"}
+  ],
+  "license": "MIT",
+  "keywords": ["band gap", "machine learning", "materials informatics", "model evaluation", "data leakage", "cross-validation", "graph neural networks", "XGBoost"],
+  "access_right": "open"
+}

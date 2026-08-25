@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this code, please cite the paper and the archived software release."
+title: "BandGap: evaluation of machine-learned band gaps (code and stored results)"
+type: software
+authors:
+  - family-names: Solecki
+    given-names: Evan
+    affiliation: University of Missouri
+  - family-names: Zhu
+    given-names: Peifen
+    affiliation: University of Missouri
+    orcid: https://orcid.org/0000-0002-5269-541X
+repository-code: https://github.com/zhupeifen/BandGap
+license: MIT
+preferred-citation:
+  type: article
+  title: "Evaluation of Machine-Learned Band Gaps: Two-Stage Modeling and the Effects of Data Representation and Split Strategy"
+  authors:
+    - family-names: Solecki
+      given-names: Evan
+    - family-names: Zhu
+      given-names: Peifen
+  journal: Computational Materials Science
+  year: 2026
+  notes: "manuscript COMMAT-D-26-02664, under revision"
