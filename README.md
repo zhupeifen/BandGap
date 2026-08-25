@@ -1,5 +1,7 @@
 # Honest Evaluation of Machine-Learned Band Gaps
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22102802.svg)](https://doi.org/10.5281/zenodo.22102802)
+
 Code and data generation for:
 
 > **How Standard Evaluation Choices Overstate Machine-Learned Band-Gap Performance —
@@ -77,14 +79,9 @@ Tol CSV is the authors' own, archived with the release).
 
 ## Citation
 
-A preprint/DOI will be added on posting. For now, please cite this repository and the
-forthcoming paper by Solecki & Zhu (University of Missouri). An archival Zenodo DOI will be
-minted from a tagged release.
+Archived releases: concept DOI [10.5281/zenodo.22102802](https://doi.org/10.5281/zenodo.22102802)
+(always resolves to the latest release; v2.0-R2 is 10.5281/zenodo.22102803). See `CITATION.cff`.
 
-## License
-
-Released under the [MIT License](LICENSE).
-
-## Acknowledgement
-
-Supported by the University of Missouri through a Faculty Startup Fund.
+> Solecki, E.; Zhu, P. *Evaluation of Machine-Learned Band Gaps: Two-Stage Modeling and the Effects of
+> Data Representation and Split Strategy.* Computational Materials Science, under revision
+> (COMMAT-D-26-02664). Code: https://doi.org/10.5281/zenodo.22102802
