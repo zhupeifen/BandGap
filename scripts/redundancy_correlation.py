@@ -10,6 +10,11 @@ interpolate within a continuous composition family. Datasets of distinct stoichi
 compounds show little optimism regardless of how many compositions repeat.
 
     .venv/Scripts/python.exe scripts/redundancy_correlation.py
+
+Data note: this figure uses the tolerance-screened perovskite set, a third-party CC-BY 4.0
+dataset that is NOT redistributed with this code. Download it from the Materials Data Facility
+(Biswas & Mannodi-Kanakkithodi, 2024; DOI 10.18126/dp3z-bp06) and place
+`Tol_screened_ensemble_final.csv` in the repo's `data/` folder before running.
 """
 
 from pathlib import Path
@@ -28,9 +33,17 @@ from cv_evaluation import DATA_DIR
 
 warnings.filterwarnings("ignore")
 
-# Measured optimism = by-chemistry MAE / random MAE (Tables 4-5 / analyses).
+# Measured optimism = by-chemistry MAE / random MAE (Tables 7-8 / analyses).
 OPTIMISM = {"Tol": 1.635, "expt_gap": 1.555, "mp_gap": 1.142,
             "Wolverton": 1.018, "Castelli": 1.002, "Double perov": 1.008}
+
+# Additional INDEPENDENT public validation dataset (mechanism robustness check,
+# not part of the six-dataset main study). (solid-solution share, optimism),
+# computed reproducibly by scripts/mechanism_extra_datasets.py.
+# NB: expt_gap_kingsbury is NOT included here -- it is the deduplicated version of
+# the same Zhuo et al. data already in expt_gap, so it is not independent; it is
+# used in the text as a controlled "same data, cleaned" comparison instead.
+EXTRA = {"Dielectric": (0.045, 1.139)}
 
 
 def stats_from_formulas(formulas):
@@ -76,24 +89,28 @@ def main():
 
     print(f"{'dataset':<14}{'N':>8}{'%fractional':>12}{'%dup-comp':>11}"
           f"{'R(chem)':>9}{'optimism':>10}")
-    frac, optf, Rc, optall = [], [], [], []
+    frac, optf, names_f, Rc, optall = [], [], [], [], []
     for name, (n, fr, dupc, rch) in rows.items():
         o = OPTIMISM[name]
         fr_s = "n/a (~0)" if np.isnan(fr) else f"{fr:.1%}"
-        print(f"{name:<14}{n:>8}{fr_s:>12}{dupc:>10.1%}{rch:>9.3f}{o:>10.3f}")
+        print(f"{name:<16}{n:>8}{fr_s:>12}{dupc:>10.1%}{rch:>9.3f}{o:>10.3f}")
         Rc.append(rch); optall.append(o)
         if not np.isnan(fr):
-            frac.append(fr); optf.append(o)
+            frac.append(fr); optf.append(o); names_f.append(name)
+
+    # Additional independent validation datasets (Section 3.4 robustness check).
+    for name, (fr, o) in EXTRA.items():
+        print(f"{name:<16}{'-':>8}{fr:>11.1%}{'-':>11}{'-':>9}{o:>10.3f}")
+        frac.append(fr); optf.append(o); names_f.append(name)
 
     Rc, optall, frac, optf = map(np.array, (Rc, optall, frac, optf))
     print(f"\ncount metric R(chem) vs optimism : Pearson r = {stats.pearsonr(Rc, optall)[0]:.2f} "
           f"(p = {stats.pearsonr(Rc, optall)[1]:.2f})  -- weak / n.s.")
     pr = stats.pearsonr(frac, optf); sr = stats.spearmanr(frac, optf)
-    print(f"%fractional vs optimism          : Pearson r = {pr[0]:.2f} (p = {pr[1]:.3f}), "
-          f"Spearman = {sr[0]:.2f}")
+    print(f"%fractional vs optimism (n={len(frac)}): Pearson r = {pr[0]:.2f} (p = {pr[1]:.3f}), "
+          f"Spearman = {sr[0]:.2f} (p = {sr[1]:.3f})")
 
     fig, ax = plt.subplots(figsize=(6.5, 5))
-    names_f = [k for k in rows if not np.isnan(rows[k][1])]
     ax.scatter(frac * 100, optf, s=70, color="tab:purple", zorder=3)
     for name, fr, o in zip(names_f, frac, optf):
         ax.annotate(name, (fr * 100, o), textcoords="offset points", xytext=(7, 3), fontsize=9)

@@ -1,0 +1,12 @@
+{
+  "model": "MEGNet",
+  "seed": 2,
+  "n_materials": 59962,
+  "n_train": 43172,
+  "n_val": 4797,
+  "n_test": 11993,
+  "epochs": 200,
+  "xgb_mae": 0.5564408302307129,
+  "gnn_mae": 0.3319195806980133,
+  "reduction_pct": 40.349528168090764
+}

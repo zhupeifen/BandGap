@@ -1,0 +1,23 @@
+{
+  "Wolverton oxides": {
+    "auc": 0.9836490468715917,
+    "reg_component": 0.29662169973950664,
+    "misgate_component": 0.03803232125367287,
+    "nz_mae_at_tau": 0.33465402099317954,
+    "misgate_rate_at_tau": 0.05680705190989226
+  },
+  "Castelli perovskites": {
+    "auc": 0.9727065541766644,
+    "reg_component": 0.4947929379891376,
+    "misgate_component": 0.08938775510204082,
+    "nz_mae_at_tau": 0.5841806930911784,
+    "misgate_rate_at_tau": 0.10748299319727891
+  },
+  "Expt gap (experimental)": {
+    "auc": 0.9825253164874198,
+    "reg_component": 0.24352883535527167,
+    "misgate_component": 0.0483264887063655,
+    "nz_mae_at_tau": 0.29185532406163717,
+    "misgate_rate_at_tau": 0.026950718685831623
+  }
+}
