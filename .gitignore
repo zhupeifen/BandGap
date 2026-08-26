@@ -38,3 +38,6 @@ HPC_info.md
 
 # local build scratch (LaTeX PDFs)
 tmp/
+
+# Codex/Claude final-audit scratch
+_final_audit_tmp/
