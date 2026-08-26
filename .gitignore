@@ -35,3 +35,6 @@ manuscript/
 # Submission packages and HPC access notes — local only
 Submission_CompMatSci/
 HPC_info.md
+
+# local build scratch (LaTeX PDFs)
+tmp/
