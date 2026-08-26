@@ -120,10 +120,12 @@ def main():
     ax.errorbar(dens, opt, yerr=err, marker="o", ms=6, lw=1.8, capsize=3,
                 color="tab:purple", zorder=3)
     ax.axhline(1.0, color="k", lw=0.8, alpha=0.5, ls="--")
-    ax.text(dens.max(), 1.0, " no optimism", va="bottom", ha="right", fontsize=15, color="0.3")
+    ax.text(dens.max(), 1.0, " equal error", va="bottom", ha="right", fontsize=15, color="0.3")
     ax.set_xscale("log")
-    ax.set_xlabel("Solid-solution density (compositions / family)")
-    ax.set_ylabel("Optimism (by-chem / random MAE)")
+    # Terminology follows the manuscript: the metric is the grouped/random MAE ratio, and a formula
+    # is a proxy for a composition family, not evidence of solid-solution disorder.
+    ax.set_xlabel("Mean compositions per chemistry family")
+    ax.set_ylabel("Grouped/random MAE ratio")
     ax.set_title("Grouped/random MAE ratio across Tol thinning conditions\n"
                  "(same dataset, target, features, and model)")
     ax.grid(alpha=0.3, which="both")

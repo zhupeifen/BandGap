@@ -61,27 +61,29 @@ def elbow(ax, pts):
 def main():
     fig, ax = plt.subplots(figsize=(11, 6))
     ax.set_aspect("equal")               # equal units -> no distortion under a tight crop
-    ax.set_xlim(0, 146); ax.set_ylim(8, 92); ax.axis("off")
+    ax.set_xlim(0, 150); ax.set_ylim(8, 92); ax.axis("off")
 
-    box(ax, 13, 60, 20, 22, "Material", "formula +\nnative columns", C_IN)
-    box(ax, 41, 60, 20, 22, "Featurize", "Magpie (132) +\nnative columns", C_IN)
+    # The two input boxes are wider than the rest: their body text is the longest in the diagram and
+    # at the old width it ran past the rounded border.
+    box(ax, 14, 60, 25, 22, "Material", "formula +\nnative columns", C_IN)
+    box(ax, 45, 60, 27, 22, "Featurize", "Magpie (132) +\nnative columns", C_IN)
     box(ax, 78, 80, 26, 18, "Classifier", "metal / non-metal\n→ P(non-metal)", C_CLF)
     box(ax, 78, 40, 26, 18, "Regressor", "non-zero gaps\nlog(1 + gap)", C_REG)
-    box(ax, 112, 60, 18, 21, "Gate", "[P ≥ τ] × ĝap\nτ = 0.25", C_GATE)
-    box(ax, 133, 60, 16, 22, "Predicted", "band gap\n(0 if metal)", C_OUT, fs=14)
+    box(ax, 111, 60, 24, 21, "Gate", "[P ≥ θ] × ĝap\nθ = 0.25", C_GATE)
+    box(ax, 137, 60, 16, 22, "Predicted", "band gap\n(0 if metal)", C_OUT, fs=14)
 
     # input chain
-    elbow(ax, [(23, 60), (31, 60)])                           # material -> featurize
+    elbow(ax, [(27, 60), (31, 60)])                           # material -> featurize
     # branch: featurize -> classifier (up) and regressor (down)
-    line(ax, [(51, 60), (58, 60)])                            # shared stem
-    elbow(ax, [(58, 60), (58, 80), (65, 80)])                 # -> classifier
-    elbow(ax, [(58, 60), (58, 40), (65, 40)])                 # -> regressor
+    line(ax, [(59, 60), (62, 60)])                            # shared stem
+    elbow(ax, [(62, 60), (62, 80), (65, 80)])                 # -> classifier
+    elbow(ax, [(62, 60), (62, 40), (65, 40)])                 # -> regressor
     # merge: classifier & regressor -> gate (Y-join, single clear arrow in)
     line(ax, [(91, 80), (98, 80), (98, 60)])                  # classifier -> merge node
     line(ax, [(91, 40), (98, 40), (98, 60)])                  # regressor  -> merge node
-    elbow(ax, [(98, 60), (103, 60)])                          # merge -> gate
+    elbow(ax, [(98, 60), (99, 60)])                           # merge -> gate
     # output
-    elbow(ax, [(121, 60), (125, 60)])                         # gate -> predicted gap
+    elbow(ax, [(123, 60), (129, 60)])                         # gate -> predicted gap
 
     note = ("Evaluation: report non-zero-subset MAE / RMSE (not aggregate accuracy),\n"
             "under random / by-composition / by-chemistry splits")
