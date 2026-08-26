@@ -134,6 +134,14 @@ def run_target(data, target):
               + f"  (pool n={len(yp)}, dropped={ndrop}, {time.time()-t0:.0f}s)")
     summary = {c: {"mean": float(np.mean(v)), "std": float(np.std(v)), "folds": [float(x) for x in v]}
                for c, v in res.items()}
+    # paired t-test across the grouped folds, each condition vs the target-only baseline
+    # (reported in Section 3.4.3; folds are the unit of inference, no multiplicity adjustment)
+    from scipy import stats
+    b = np.array(res["baseline"])
+    for c in ("mp_feature", "pooled_ind", "pooled_noind"):
+        v = np.array(res[c])
+        summary[c]["paired_t_p_vs_baseline"] = float(stats.ttest_rel(v, b).pvalue)
+        summary[c]["better_folds"] = int((v < b).sum())
     summary["dropped_overlap_per_fold"] = dropped
     return summary
 

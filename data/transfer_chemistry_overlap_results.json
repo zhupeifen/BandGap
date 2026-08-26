@@ -1,0 +1,194 @@
+{
+  "correlation_variants": {
+    "all six": {
+      "n": 6,
+      "datasets": [
+        "Tol",
+        "expt",
+        "Petousis",
+        "Wolverton",
+        "Castelli",
+        "Double"
+      ],
+      "spearman": 0.942857142857143,
+      "p_spearman_exact": 0.008333333333333333,
+      "pearson": 0.8225536143931803,
+      "p_pearson_exact": 0.002777777777777778
+    },
+    "without Tol": {
+      "n": 5,
+      "datasets": [
+        "expt",
+        "Petousis",
+        "Wolverton",
+        "Castelli",
+        "Double"
+      ],
+      "spearman": 0.8999999999999998,
+      "p_spearman_exact": 0.041666666666666664,
+      "pearson": 0.9979075046818571,
+      "p_pearson_exact": 0.016666666666666666
+    },
+    "without Petousis": {
+      "n": 5,
+      "datasets": [
+        "Tol",
+        "expt",
+        "Wolverton",
+        "Castelli",
+        "Double"
+      ],
+      "spearman": 0.8999999999999998,
+      "p_spearman_exact": 0.041666666666666664,
+      "pearson": 0.8186368704074235,
+      "p_pearson_exact": 0.016666666666666666
+    },
+    "without Tol and Petousis": {
+      "n": 4,
+      "datasets": [
+        "expt",
+        "Wolverton",
+        "Castelli",
+        "Double"
+      ],
+      "spearman": 0.7999999999999999,
+      "p_spearman_exact": 0.16666666666666666,
+      "pearson": 0.9992851010195254,
+      "p_pearson_exact": 0.08333333333333333
+    }
+  },
+  "transfer_pairs": [
+    {
+      "train": "Expt",
+      "test": "Wolverton",
+      "mae": 1.6994592975089646,
+      "mae_bias_corrected": 1.1306442027141275,
+      "pearson_r": 0.27013767436963154,
+      "within_target_mae": 0.680159093839765,
+      "excess_over_within": 0.45048510887436244,
+      "element_jaccard": 0.8,
+      "test_chemistry_coverage": 0.05778648383937316
+    },
+    {
+      "train": "Expt",
+      "test": "Castelli",
+      "mae": 1.899889036749496,
+      "mae_bias_corrected": 1.136682288743813,
+      "pearson_r": 0.3327886540881093,
+      "within_target_mae": 0.7793233609686091,
+      "excess_over_within": 0.35735892777520395,
+      "element_jaccard": 0.7,
+      "test_chemistry_coverage": 0.04625850340136054
+    },
+    {
+      "train": "Expt",
+      "test": "Double",
+      "mae": 1.4575824450033403,
+      "mae_bias_corrected": 1.2740439341018734,
+      "pearson_r": 0.2143297760362639,
+      "within_target_mae": 0.24903810002807847,
+      "excess_over_within": 1.025005834073795,
+      "element_jaccard": 0.3625,
+      "test_chemistry_coverage": 0.0007656967840735069
+    },
+    {
+      "train": "Wolverton",
+      "test": "Expt",
+      "mae": 1.2317183225695234,
+      "mae_bias_corrected": 1.0808070686056117,
+      "pearson_r": 0.19212461521901975,
+      "within_target_mae": 0.26597059066221884,
+      "excess_over_within": 0.8148364779433929,
+      "element_jaccard": 0.8,
+      "test_chemistry_coverage": 0.018993839835728953
+    },
+    {
+      "train": "Wolverton",
+      "test": "Castelli",
+      "mae": 1.052968788820059,
+      "mae_bias_corrected": 1.0761560596333177,
+      "pearson_r": 0.412413476543529,
+      "within_target_mae": 0.7793233609686091,
+      "excess_over_within": 0.2968326986647086,
+      "element_jaccard": 0.6753246753246753,
+      "test_chemistry_coverage": 0.1727891156462585
+    },
+    {
+      "train": "Wolverton",
+      "test": "Double",
+      "mae": 2.5198430086751187,
+      "mae_bias_corrected": 1.3183426608783186,
+      "pearson_r": 0.23735435265752025,
+      "within_target_mae": 0.24903810002807847,
+      "excess_over_within": 1.0693045608502403,
+      "element_jaccard": 0.3972602739726027,
+      "test_chemistry_coverage": 0.0
+    },
+    {
+      "train": "Castelli",
+      "test": "Expt",
+      "mae": 1.3360572188200708,
+      "mae_bias_corrected": 1.1925251100312921,
+      "pearson_r": 0.13149890079588072,
+      "within_target_mae": 0.26597059066221884,
+      "excess_over_within": 0.9265545193690733,
+      "element_jaccard": 0.7,
+      "test_chemistry_coverage": 0.016170431211498974
+    },
+    {
+      "train": "Castelli",
+      "test": "Wolverton",
+      "mae": 1.283555829501759,
+      "mae_bias_corrected": 0.9929087797489144,
+      "pearson_r": 0.5132559347311612,
+      "within_target_mae": 0.680159093839765,
+      "excess_over_within": 0.3127496859091494,
+      "element_jaccard": 0.6753246753246753,
+      "test_chemistry_coverage": 0.15964740450538686
+    },
+    {
+      "train": "Castelli",
+      "test": "Double",
+      "mae": 1.6993627580057908,
+      "mae_bias_corrected": 1.2861137378600624,
+      "pearson_r": 0.3722465615421555,
+      "within_target_mae": 0.24903810002807847,
+      "excess_over_within": 1.0370756378319839,
+      "element_jaccard": 0.5178571428571429,
+      "test_chemistry_coverage": 0.0
+    },
+    {
+      "train": "Double",
+      "test": "Expt",
+      "mae": 1.4337127331615231,
+      "mae_bias_corrected": 1.1777325524043019,
+      "pearson_r": 0.09304633577786993,
+      "within_target_mae": 0.26597059066221884,
+      "excess_over_within": 0.911761961742083,
+      "element_jaccard": 0.3625,
+      "test_chemistry_coverage": 0.0002566735112936345
+    },
+    {
+      "train": "Double",
+      "test": "Wolverton",
+      "mae": 2.653555171608808,
+      "mae_bias_corrected": 1.3154818498493652,
+      "pearson_r": 0.24246408080556353,
+      "within_target_mae": 0.680159093839765,
+      "excess_over_within": 0.6353227560096002,
+      "element_jaccard": 0.3972602739726027,
+      "test_chemistry_coverage": 0.0
+    },
+    {
+      "train": "Double",
+      "test": "Castelli",
+      "mae": 1.9879043393232383,
+      "mae_bias_corrected": 1.1676901535066133,
+      "pearson_r": 0.41075900447488467,
+      "within_target_mae": 0.7793233609686091,
+      "excess_over_within": 0.3883667925380042,
+      "element_jaccard": 0.5178571428571429,
+      "test_chemistry_coverage": 0.0
+    }
+  ]
+}
