@@ -1,0 +1,12 @@
+{
+  "model": "ALIGNN",
+  "seed": 0,
+  "n_materials": 59962,
+  "n_train": 43172,
+  "n_val": 4797,
+  "n_test": 11993,
+  "epochs": 100,
+  "xgb_mae": 0.5627452731132507,
+  "gnn_mae": 0.378272145986557,
+  "reduction_pct": 32.7809287683824
+}
