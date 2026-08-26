@@ -1,5 +1,5 @@
 """
-What actually drives random-split optimism? An honest mechanism analysis.
+Exploratory analysis of grouped/random MAE ratios and composition-family sampling.
 
 We first asked whether optimism scales with a simple redundancy *count*
 (R = 1 − unique chemistries / N). It does not (weak, non-significant correlation):
@@ -18,6 +18,8 @@ dataset that is NOT redistributed with this code. Download it from the Materials
 """
 
 from pathlib import Path
+import itertools
+import math
 import warnings
 
 import numpy as np
@@ -27,9 +29,13 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from pymatgen.core import Composition
-from matminer.utils.io import load_dataframe_from_json
+try:
+    from matminer.utils.io import load_dataframe_from_json
+except ImportError:  # the stored files use pandas' split orientation
+    def load_dataframe_from_json(path):
+        return pd.read_json(path, orient="split")
 
-from cv_evaluation import DATA_DIR
+DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 
 warnings.filterwarnings("ignore")
 
@@ -43,7 +49,7 @@ OPTIMISM = {"Tol": 1.635, "expt_gap": 1.555, "mp_gap": 1.142,
 # NB: expt_gap_kingsbury is NOT included here -- it is the deduplicated version of
 # the same Zhuo et al. data already in expt_gap, so it is not independent; it is
 # used in the text as a controlled "same data, cleaned" comparison instead.
-EXTRA = {"Dielectric": (0.045, 1.139)}
+EXTRA = {"Dielectric": (0.0, 1.139)}
 
 
 def stats_from_formulas(formulas):
@@ -54,12 +60,18 @@ def stats_from_formulas(formulas):
         except Exception:
             continue
         n += 1
-        a = np.array(list(c.get_el_amt_dict().values())); a = a / a.min()
+        # Operational proxy: a fractional coefficient in the source formula.
+        # Integer-reducing the ratios would miss 50/50 mixed formulas.
+        a = np.array(list(c.get_el_amt_dict().values()))
         if not np.all(np.abs(a - np.round(a)) < 1e-3):
             frac += 1
         comp.add(c.reduced_formula)
         chem.add(frozenset(e.symbol for e in c.elements))
     return n, frac / n, 1 - len(comp) / n, 1 - len(chem) / n
+
+
+assert stats_from_formulas(["CsPb0.5Sn0.5Br3"])[1] == 1.0
+assert stats_from_formulas(["CaTiO3"])[1] == 0.0
 
 
 def main():
@@ -107,8 +119,12 @@ def main():
     print(f"\ncount metric R(chem) vs optimism : Pearson r = {stats.pearsonr(Rc, optall)[0]:.2f} "
           f"(p = {stats.pearsonr(Rc, optall)[1]:.2f})  -- weak / n.s.")
     pr = stats.pearsonr(frac, optf); sr = stats.spearmanr(frac, optf)
+    exact_p = sum(
+        abs(stats.spearmanr(frac, optf[list(perm)])[0]) >= abs(sr[0]) - 1e-12
+        for perm in itertools.permutations(range(len(optf)))
+    ) / math.factorial(len(optf))
     print(f"%fractional vs optimism (n={len(frac)}): Pearson r = {pr[0]:.2f} (p = {pr[1]:.3f}), "
-          f"Spearman = {sr[0]:.2f} (p = {sr[1]:.3f})")
+          f"Spearman = {sr[0]:.2f} (exact two-sided p = {exact_p:.3f})")
 
     fig, ax = plt.subplots(figsize=(6.5, 5))
     ax.scatter(frac * 100, optf, s=70, color="tab:purple", zorder=3)
@@ -116,10 +132,10 @@ def main():
         ax.annotate(name, (fr * 100, o), textcoords="offset points", xytext=(7, 3), fontsize=9)
     ax.axhline(1.0, color="k", lw=0.8, alpha=0.4)
     ax.set_xlim(-4, 114)
-    ax.set_xlabel("Solid-solution share (% entries with fractional stoichiometry)")
-    ax.set_ylabel("Random-split optimism  (by-chemistry MAE / random MAE)")
-    ax.set_title("Optimism is driven by solid-solution composition\n"
-                 f"(Spearman = {sr[0]:.2f}; the simple redundancy count does not predict it)")
+    ax.set_xlabel("Fractional-formula share (%)")
+    ax.set_ylabel("Grouped/random MAE ratio")
+    ax.set_title("Exploratory association with composition-family sampling\n"
+                 f"(Spearman = {sr[0]:.2f}, exact p = {exact_p:.3f}; n = {len(frac)})")
     ax.grid(alpha=0.3)
     fig.tight_layout()
     out = Path(__file__).resolve().parent.parent / "plots"

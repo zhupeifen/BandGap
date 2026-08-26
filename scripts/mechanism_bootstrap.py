@@ -1,5 +1,5 @@
 """
-Robustness of the solid-solution-share vs. optimism rank correlation (Spearman 0.94).
+Robustness of the fractional-formula-share versus grouped/random MAE rank correlation.
 
 The correlation is over a small set of datasets, so we quantify its stability three ways:
   - exact permutation test  : all n! rank permutations -> an exact p-value (no large-n
@@ -22,7 +22,11 @@ import warnings
 import numpy as np
 import pandas as pd
 from scipy import stats
-from matminer.utils.io import load_dataframe_from_json
+try:
+    from matminer.utils.io import load_dataframe_from_json
+except ImportError:
+    def load_dataframe_from_json(path):
+        return pd.read_json(path, orient="split")
 
 from redundancy_correlation import stats_from_formulas, OPTIMISM, EXTRA, DATA_DIR
 
@@ -72,7 +76,7 @@ def main():
     n = len(x)
     print(f"n = {n} datasets (mp_gap excluded, ~0% fractional)")
     for nm, fr, o in pairs:
-        print(f"  {nm:<14} solid-solution share = {fr:6.1%}   optimism = {o:.3f}")
+        print(f"  {nm:<14} fractional-formula share = {fr:6.1%}   grouped/random ratio = {o:.3f}")
 
     rho, p_perm = exact_perm_p(x, y)
     pr = stats.pearsonr(x, y)

@@ -10,10 +10,10 @@
         "Castelli",
         "Double"
       ],
-      "spearman": 0.942857142857143,
-      "p_spearman_exact": 0.008333333333333333,
-      "pearson": 0.8225536143931803,
-      "p_pearson_exact": 0.002777777777777778
+      "spearman": 0.8451542547285165,
+      "p_spearman_exact": 0.06666666666666667,
+      "pearson": 0.7455604749200709,
+      "p_pearson_exact": 0.03333333333333333
     },
     "without Tol": {
       "n": 5,
@@ -24,10 +24,10 @@
         "Castelli",
         "Double"
       ],
-      "spearman": 0.8999999999999998,
-      "p_spearman_exact": 0.041666666666666664,
-      "pearson": 0.9979075046818571,
-      "p_pearson_exact": 0.016666666666666666
+      "spearman": 0.7071067811865475,
+      "p_spearman_exact": 0.4,
+      "pearson": 0.9710765220383688,
+      "p_pearson_exact": 0.2
     },
     "without Petousis": {
       "n": 5,
@@ -38,10 +38,10 @@
         "Castelli",
         "Double"
       ],
-      "spearman": 0.8999999999999998,
-      "p_spearman_exact": 0.041666666666666664,
-      "pearson": 0.8186368704074235,
-      "p_pearson_exact": 0.016666666666666666
+      "spearman": 0.8944271909999159,
+      "p_spearman_exact": 0.1,
+      "pearson": 0.73921070675272,
+      "p_pearson_exact": 0.05
     },
     "without Tol and Petousis": {
       "n": 4,
@@ -51,10 +51,10 @@
         "Castelli",
         "Double"
       ],
-      "spearman": 0.7999999999999999,
-      "p_spearman_exact": 0.16666666666666666,
-      "pearson": 0.9992851010195254,
-      "p_pearson_exact": 0.08333333333333333
+      "spearman": 0.7745966692414834,
+      "p_spearman_exact": 0.5,
+      "pearson": 0.9997075657961038,
+      "p_pearson_exact": 0.25
     }
   },
   "transfer_pairs": [

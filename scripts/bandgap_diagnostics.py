@@ -8,8 +8,8 @@ numbers before trusting them:
   1. Zero inflation        -- non-zero fraction; why aggregate accuracy can mislead.
   2. Non-zero error        -- two-stage non-zero MAE/RMSE (5-fold CV), the honest metric.
   3. Gate quality          -- classifier AUC and the share of error from misgating.
-  4. Solid-solution share  -- fraction of fractional-stoichiometry entries; predicts...
-  5. Split optimism        -- random vs chemistry-grouped non-zero MAE (a leakage probe).
+  4. Fractional-formula share -- operational source-formula proxy.
+  5. Split sensitivity        -- random vs chemistry-grouped non-zero MAE.
 
 It is composition-only (Magpie features from the formula), so it works on any dataset
 without native structural columns, and it reuses the exact model configuration from the
@@ -46,9 +46,21 @@ ROOT = Path(__file__).resolve().parent.parent
 
 
 def _is_fractional(comp):
+    """Return whether the source formula contains a non-integer coefficient.
+
+    This is an operational formula-level proxy, not a crystallographic test for
+    site disorder.  Do not reduce the coefficient ratios to integers: doing so
+    would incorrectly classify common 50/50 formulas such as
+    CsPb0.5Sn0.5Br3 as non-fractional.
+    """
     a = np.array(list(comp.get_el_amt_dict().values()))
-    a = a / a.min()
     return not np.all(np.abs(a - np.round(a)) < 1e-3)
+
+
+# Guard the definition used by the manuscript and command-line report.
+assert _is_fractional(Composition("Hg0.7Cd0.3Te"))
+assert _is_fractional(Composition("CsPb0.5Sn0.5Br3"))
+assert not _is_fractional(Composition("CaTiO3"))
 
 
 def composition_stats(formulas):
@@ -216,7 +228,7 @@ def _print_report(r):
 
     print(f"\n  4. SOLID-SOLUTION SHARE")
     ss = r["solid_solution_share"]
-    print(f"     fractional-stoichiometry entries: {100*ss:.1f}%  -> split optimism is "
+    print(f"     fractional-formula entries: {100*ss:.1f}%  -> grouped/random ratio is "
           f"{'LIKELY (run a grouped split)' if ss > 0.05 else 'unlikely from this cause'}.")
 
     if "split_optimism" in r and "optimism_ratio" in r["split_optimism"]:
@@ -227,9 +239,9 @@ def _print_report(r):
         print(f"     by-chemistry    : {s['by_chemistry_mae']:.3f} eV")
         ratio = s["optimism_ratio"]
         flag = "INFLATED random split" if ratio and ratio > 1.15 else "little leakage"
-        print(f"     optimism (by-chem / random) = {ratio:.2f}x  -> {flag}")
+        print(f"     grouped/random MAE ratio = {ratio:.2f}x  -> {flag}")
     elif "split_optimism" in r:
-        print(f"\n  5. SPLIT OPTIMISM: {r['split_optimism'].get('note', 'n/a')}")
+        print(f"\n  5. SPLIT SENSITIVITY: {r['split_optimism'].get('note', 'n/a')}")
     print(line)
 
 

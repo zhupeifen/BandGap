@@ -1,14 +1,12 @@
 """
-Causal test of the solid-solution mechanism.
+Tol thinning sensitivity analysis.
 
-The cross-dataset correlation (solid-solution share vs random-split optimism,
-Spearman 0.94; redundancy_correlation.py) is associational. Here we *intervene*:
-on a single dataset (Tol), holding the target, features, and model fixed, we vary
-only the DENSITY of solid-solution sampling -- the number of distinct fractional
-compositions retained per chemistry family -- and measure how random-split optimism
-responds. If optimism rises with solid-solution density and approaches 1 when each
-family keeps a single composition (no within-family interpolation), the share is a
-cause, not a correlate.
+The cross-dataset correlation (fractional-formula share versus grouped/random MAE ratio;
+redundancy_correlation.py) is associational. Here we perform a thinning sensitivity analysis:
+on a single dataset (Tol), holding the target, features, model, and set of chemistry
+families fixed, we vary the number of distinct fractional compositions retained per
+family and measure how the grouped/random ratio responds. Sample size and the retained
+composition distribution change with density, so this is not a causal intervention.
 
 To isolate solid-solution interpolation we first deduplicate to one row per
 composition, removing the structure-twin leakage channel; the only remaining
@@ -126,7 +124,7 @@ def main():
     ax.set_xscale("log")
     ax.set_xlabel("Solid-solution density (compositions / family)")
     ax.set_ylabel("Optimism (by-chem / random MAE)")
-    ax.set_title("Increasing solid-solution density causes split optimism\n"
+    ax.set_title("Grouped/random MAE ratio across Tol thinning conditions\n"
                  "(same dataset, target, features, and model)")
     ax.grid(alpha=0.3, which="both")
     fig.tight_layout()

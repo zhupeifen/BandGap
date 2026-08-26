@@ -113,30 +113,31 @@ fig(doc, "feature_importance.png",
     "Figure: SHAP feature importance per dataset. Energetic descriptors dominate Wolverton "
     "(51% of total importance); electronegativity statistics drive the experimental set.")
 
-doc.add_heading("2.3 Random-split optimism is concentrated on solid-solution datasets", level=2)
+doc.add_heading("2.3 Split sensitivity and continuously sampled composition families", level=2)
 doc.add_paragraph(
     "Random train/test splits can place near-identical compositions on both sides, "
     "overstating generalization. The size of this effect is dataset-dependent. A simple "
     "redundancy count does NOT predict it (Pearson r=0.54, n.s.) — Castelli has 49% repeated "
-    "compositions yet no optimism. The factor that does separate the datasets is the share of "
-    "solid-solution (fractional) compositions, which let the model interpolate within a "
-    "continuous composition family. Optimism is large only on those sets (Tol 99.8% fractional, "
-    "expt_gap 21.5%) and negligible on collections of distinct compounds; the solid-solution "
-    "share tracks optimism with Spearman 0.90.")
+    "compositions yet little split sensitivity. Fractional-formula share is an operational proxy "
+    "for continuously sampled composition families, not a definitive solid-solution label. The "
+    "corrected shares are 99.8% for Tol and 8.6% for expt_gap, and approximately zero for the "
+    "other datasets in the exploratory comparison. The two non-zero-share datasets have the "
+    "largest grouped/random MAE ratios, but the six-dataset association is uncertain "
+    "(Spearman rho=0.85, exact two-sided permutation p=0.067).")
 add_table(doc,
-          ["Dataset", "Solid-solution share", "Optimism (by-chemistry / random MAE)"],
+          ["Dataset", "Fractional-formula share", "Grouped/random MAE ratio"],
           [["Tol-screened", "99.8%", "1.64×"],
-           ["Expt gap", "21.5%", "1.55×"],
-           ["MP gap (106k)", "~0% (polymorph duplicates)", "1.14×"],
-           ["Wolverton", "1.3%", "1.02×"],
-           ["Castelli", "0.5%", "1.00×"],
+           ["Expt gap", "8.6%", "1.55×"],
+           ["Petousis dielectric", "0.0%", "1.14×"],
+           ["Wolverton", "0.0%", "1.02×"],
+           ["Castelli", "0.0%", "1.00×"],
            ["Double perovskites", "0.0%", "1.01×"]])
 fig(doc, "generalization_splits.png",
     "Figure: MAE under leakage-controlled splits, relative to a random split, for all six "
-    "datasets. Optimism is large on the solid-solution sets, mild on MP gap, negligible elsewhere.")
+    "main datasets. The grouped/random ratio is largest for Tol and the experimental set.")
 fig(doc, "redundancy_correlation.png",
-    "Figure: Random-split optimism vs. solid-solution share (Spearman 0.90). A simple "
-    "redundancy count does not predict optimism (r=0.54, n.s.).")
+    "Figure: Grouped/random MAE ratio versus fractional-formula share (Spearman rho=0.85, "
+    "exact two-sided p=0.067). A simple redundancy count does not predict the ratio (r=0.54, n.s.).")
 
 doc.add_heading("2.4 Data-limited, and the no-zero datasets", level=2)
 doc.add_paragraph(

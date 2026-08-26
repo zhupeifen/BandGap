@@ -1,12 +1,12 @@
 """
-Extra validation datasets for the solid-solution-share -> random-split-optimism
+Extra validation datasets for the fractional-formula-share/grouped-random-MAE
 relationship (Section 3.4, Figure 4). These are NOT part of the six-dataset main
 study; they are additional public band-gap datasets used only to test whether the
-solid-solution-share vs. optimism trend holds beyond the original points.
+association beyond the original points.
 
 For each dataset we report:
-  - solid-solution share  = fraction of formulas with non-integer (reduced) stoichiometry
-  - optimism              = by-chemistry non-zero MAE / random non-zero MAE
+  - fractional-formula share = fraction of source formulas with a non-integer coefficient
+  - grouped/random ratio  = by-chemistry non-zero MAE / random non-zero MAE
                             (two-stage if zero-inflated, else single-stage log1p regressor)
 
     .venv/Scripts/python.exe scripts/mechanism_extra_datasets.py
@@ -15,10 +15,15 @@ For each dataset we report:
 import warnings
 
 import numpy as np
+import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import KFold, GroupKFold
 from matminer.datasets import load_dataset
-from matminer.utils.io import load_dataframe_from_json
+try:
+    from matminer.utils.io import load_dataframe_from_json
+except ImportError:
+    def load_dataframe_from_json(path):
+        return pd.read_json(path, orient="split")
 from pymatgen.core import Composition
 
 from cv_evaluation import magpie, metrics, DATA_DIR, NONMETAL_THRESHOLD, N_SPLITS, SEED
@@ -34,7 +39,9 @@ def frac_share(formulas):
         except Exception:
             continue
         n += 1
-        a = np.array(list(c.get_el_amt_dict().values())); a = a / a.min()
+        # Keep the coefficients as written.  Reducing them to integer ratios
+        # would miss common mixed formulas such as A0.5B0.5O3.
+        a = np.array(list(c.get_el_amt_dict().values()))
         if not np.all(np.abs(a - np.round(a)) < 1e-3):
             fr += 1
     return fr / max(n, 1)
@@ -111,6 +118,6 @@ if __name__ == "__main__":
     d = load_dataset("dielectric_constant")
     results.append(run("dielectric (Petousis)", d["formula"], d["band_gap"]))
 
-    print("\n(name, solid-solution share, optimism):")
+    print("\n(name, fractional-formula share, grouped/random MAE ratio):")
     for nm, fs, opt in results:
         print(f"  {nm:<22} {fs:.4f}  {opt:.4f}")

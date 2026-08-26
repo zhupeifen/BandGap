@@ -1,7 +1,7 @@
 """
 Figure: MAE under leakage-controlled splits, relative to the random split.
 
-Visualizes the dataset-dependence of random-split optimism (Section 5.4). Numbers
+Visualizes dataset dependence of the grouped/random MAE ratio (Section 3.4). Numbers
 are the cross-validated MAE values from tol_generalization_test.py (overall MAE,
 the Tol target has no zeros) and cv_grouped_splits.py (non-zero MAE). Each dataset
 is normalized to its own random-split MAE so the three sit on one axis.
@@ -41,7 +41,7 @@ ax.axhline(1.0, color="gray", lw=1, ls="--", zorder=0)
 ax.set_xticks(x)
 ax.set_xticklabels(SPLITS)
 ax.set_ylabel("MAE relative to random split")
-ax.set_title("Random-split optimism is concentrated on solid-solution datasets\n"
+ax.set_title("Grouped splits are hardest for continuously sampled composition families\n"
              "(large: Tol, expt_gap; mild: MP gap; "
              "negligible: discrete-compound sets)", fontsize=11)
 ax.set_ylim(0.9, 1.8)

@@ -2,7 +2,7 @@
 Graphical abstract: the paper's two core messages in one wide graphic.
   (a) The metric illusion -- high aggregate accuracy obscures large semiconductor error,
       which the non-zero metric + two-stage model expose and recover.
-  (b) The mechanism -- random-split optimism is set by a dataset's solid-solution share.
+  (b) Exploratory split sensitivity versus fractional-formula share.
 
 All numbers are the manuscript's reported values (hardcoded; no computation).
 
@@ -23,8 +23,8 @@ plt.rcParams.update({"font.family": "Times New Roman", "mathtext.fontset": "stix
 
 GREEN, RED, BLUE, PURPLE = "#2ca02c", "#d62728", "#1f77b4", "#7a3b9a"
 
-# (b) solid-solution share (%) vs random-split optimism (6 datasets; manuscript Fig. 4b)
-SS = np.array([1.3, 0.5, 21.5, 0.0, 99.8, 4.5])
+# (b) source-formula fractional share vs grouped/random MAE ratio
+SS = np.array([0.0, 0.0, 8.6, 0.0, 99.8, 0.0])
 OPT = np.array([1.018, 1.002, 1.555, 1.008, 1.635, 1.139])
 NAMES = ["Wolverton", "Castelli", "Expt gap", "Double\nperov.", "Tol", "Dielectric"]
 
@@ -63,8 +63,8 @@ def main():
     axr.scatter(SS, OPT, s=90, color=PURPLE, zorder=3, edgecolor="white", linewidth=0.8)
     # label the three separated datasets individually
     for name, s, o, dx, ha in [("Tol", 99.8, 1.635, -4, "right"),
-                               ("Expt gap", 21.5, 1.555, 4, "left"),
-                               ("Dielectric", 4.5, 1.139, 5, "left")]:
+                               ("Expt gap", 8.6, 1.555, 4, "left"),
+                               ("Dielectric", 0.0, 1.139, 5, "left")]:
         axr.annotate(name, (s, o), xytext=(s + dx, o + 0.015), fontsize=12, ha=ha,
                      va="bottom", color="0.25")
     # one grouped label for the three stoichiometric datasets clustered near (0, 1.0)
@@ -73,10 +73,10 @@ def main():
                  arrowprops=dict(arrowstyle="-", color="0.6", lw=0.8))
     axr.axhline(1.0, color="k", lw=0.8, alpha=0.4, ls="--")
     axr.set_xlim(-6, 116); axr.set_ylim(0.95, 1.72)
-    axr.set_xlabel("Solid-solution share (% fractional compositions)")
-    axr.set_ylabel("Random-split optimism\n(by-chemistry / random MAE)")
-    axr.set_title("(b) Leakage is set by solid-solution share")
-    axr.text(55, 1.10, r"Spearman $\rho = 0.94$", fontsize=14, color=PURPLE, fontweight="bold")
+    axr.set_xlabel("Fractional-formula share (%)")
+    axr.set_ylabel("Grouped/random MAE ratio")
+    axr.set_title("(b) Fractional formulas flag split sensitivity")
+    axr.text(55, 1.10, r"Spearman $\rho = 0.85$", fontsize=14, color=PURPLE, fontweight="bold")
 
     fig.tight_layout()
     OUT.mkdir(exist_ok=True)

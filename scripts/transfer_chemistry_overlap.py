@@ -17,26 +17,34 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from scipy import stats
-from matminer.utils.io import load_dataframe_from_json
+try:
+    from matminer.utils.io import load_dataframe_from_json
+except ImportError:
+    def load_dataframe_from_json(path):
+        return pd.read_json(path, orient="split")
 from pymatgen.core import Composition
 
-from cv_evaluation import DATA_DIR, num
+DATA_DIR = Path(__file__).resolve().parents[1] / "data"
+
+
+def num(values):
+    return pd.to_numeric(values, errors="coerce")
 
 warnings.filterwarnings("ignore")
 OUT = DATA_DIR / "transfer_chemistry_overlap_results.json"
 
 # fractional share (%) and random-split optimism, from redundancy_correlation.py (2026-08-25 run)
-SETS = {"Tol": (99.8, 1.635), "expt": (21.5, 1.555), "Petousis": (4.5, 1.139),
-        "Wolverton": (1.3, 1.018), "Castelli": (0.5, 1.002), "Double": (0.0, 1.008)}
+SETS = {"Tol": (99.8, 1.635), "expt": (8.6, 1.555), "Petousis": (0.0, 1.139),
+        "Wolverton": (0.0, 1.018), "Castelli": (0.0, 1.002), "Double": (0.0, 1.008)}
 
 
 def exact_perm_p(x, y, stat):
-    """Exact one-sided permutation p for a rank/correlation statistic (n <= 7)."""
+    """Exact two-sided permutation p for a correlation statistic (n <= 7)."""
     obs = stat(x, y)
     y = np.asarray(y); k = 0; n = 0
     for perm in itertools.permutations(range(len(y))):
         n += 1
-        if stat(x, y[list(perm)]) >= obs - 1e-12:
+        if abs(stat(x, y[list(perm)])) >= abs(obs) - 1e-12:
             k += 1
     return obs, k / n
 
