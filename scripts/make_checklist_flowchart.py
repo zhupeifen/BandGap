@@ -38,7 +38,7 @@ STEPS = [
     ("2. Evaluation metrics", "Score the true non-zero subset in eV.",
      "non-zero MAE and RMSE, beside any\naggregate tolerance metric", C_DATA),
     ("3. Split strategy", "Split at random, by composition, and by\nchemistry when both regimes matter.",
-     "grouped/random MAE ratio;\nfractional share; grouping rule", C_PROT),
+     "grouped/random MAE ratio; fractional-\nformula share; grouping rule", C_PROT),
     ("4. Attributing a gain", "Hold the features fixed and select every\nconfiguration inside the training folds.",
      "feature-held-fixed difference;\nuncertainty or p-value; protocol", C_PROT),
     ("5. Transfer tests", "Predict across datasets, not only within one.",
