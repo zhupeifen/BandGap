@@ -1,6 +1,6 @@
 """
 Graphical abstract: the paper's two core messages in one wide graphic.
-  (a) The metric illusion -- high aggregate accuracy obscures large semiconductor error,
+  (a) The metric illusion -- high aggregate accuracy obscures large non-zero-gap error,
       which the non-zero metric + two-stage model expose and recover.
   (b) Exploratory split sensitivity versus fractional-formula share.
 
@@ -46,14 +46,15 @@ def main():
     ax2.set_ylim(0, 1.25); ax2.set_ylabel("Non-zero MAE (eV)", color=RED)
     ax2.tick_params(axis="y", colors=RED)
     ax2.text(1, 1.01, "~1.0", ha="center", va="bottom", color=RED, fontsize=15, fontweight="bold")
-    ax2.text(2, 0.60, "0.585", ha="center", va="bottom", color="#c0504d", fontsize=13, fontweight="bold")
+    ax2.text(2, 0.66, "0.585", ha="center", va="bottom", color="#c0504d", fontsize=13, fontweight="bold")
 
     axl.set_xticks([0, 1, 2])
     axl.set_xticklabels(["aggregate\naccuracy", "single-stage\nnon-zero MAE", "two-stage\nnon-zero MAE"])
     axl.set_xlim(-0.6, 2.6)
-    axl.set_title("(a) Aggregate accuracy obscures semiconductor error")
-    ax2.annotate("", xy=(2, 0.60), xytext=(1, 1.02),
-                 arrowprops=dict(arrowstyle="->", color="0.35", lw=1.6,
+    axl.set_title("(a) Aggregate accuracy obscures non-zero-gap error")
+    # Land the arrow on the bar's left shoulder: aimed at the bar top it collided with the 0.585 label.
+    ax2.annotate("", xy=(1.78, 0.60), xytext=(1, 1.02),
+                 arrowprops=dict(arrowstyle="->", color="0.35", lw=1.6, shrinkB=2,
                                  connectionstyle="arc3,rad=-0.35"))
     ax2.text(1.62, 0.80, "two-stage\ncorrection", ha="center", va="center",
              fontsize=11, color="0.35")
