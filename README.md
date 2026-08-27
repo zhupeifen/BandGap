@@ -81,9 +81,16 @@ data obtained from the Materials Data Facility and is not redistributed here.
 
 ## Citation
 
-Archived releases: concept DOI [10.5281/zenodo.22102802](https://doi.org/10.5281/zenodo.22102802)
-(always resolves to the latest release); v2.0.2 has version DOI
-[10.5281/zenodo.22114447](https://doi.org/10.5281/zenodo.22114447). See `CITATION.cff`.
+Cite the concept DOI [10.5281/zenodo.22102802](https://doi.org/10.5281/zenodo.22102802), which always
+resolves to the latest release. See `CITATION.cff`.
+
+Per-version DOIs, minted by Zenodo when each tag is pushed:
+
+| Release | Version DOI |
+|---|---|
+| v2.0.3 | recorded here once minted |
+| v2.0.2 | [10.5281/zenodo.22114447](https://doi.org/10.5281/zenodo.22114447) |
+| v2.0.1 | [10.5281/zenodo.22104943](https://doi.org/10.5281/zenodo.22104943) |
 
 > Solecki, E.; Zhu, P. *Evaluation of Machine-Learned Band Gaps: Two-Stage Modeling and the Effects of
 > Data Representation and Split Strategy.* Computational Materials Science, under revision

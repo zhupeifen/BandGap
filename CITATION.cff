@@ -1,7 +1,9 @@
 cff-version: 1.2.0
-version: 2.0.2
+version: 2.0.3
 date-released: 2026-08-26
-doi: 10.5281/zenodo.22114447
+# Concept DOI: always resolves to the latest release, so a tag can never name a version
+# DOI that has not been minted yet. Per-version DOIs are listed in README.md.
+doi: 10.5281/zenodo.22102802
 message: "If you use this code, please cite the paper and the archived software release."
 title: "BandGap: evaluation of machine-learned band gaps (code and stored results)"
 type: software
