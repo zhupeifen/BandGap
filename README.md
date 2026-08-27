@@ -88,7 +88,7 @@ Per-version DOIs, minted by Zenodo when each tag is pushed:
 
 | Release | Version DOI |
 |---|---|
-| v2.0.3 | recorded here once minted |
+| v2.0.3 | [10.5281/zenodo.22119613](https://doi.org/10.5281/zenodo.22119613) |
 | v2.0.2 | [10.5281/zenodo.22114447](https://doi.org/10.5281/zenodo.22114447) |
 | v2.0.1 | [10.5281/zenodo.22104943](https://doi.org/10.5281/zenodo.22104943) |
 
