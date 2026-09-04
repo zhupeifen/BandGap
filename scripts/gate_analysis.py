@@ -149,8 +149,8 @@ def main():
         r = results[name]
         ax.plot(r["tau_grid"], r["tau_mae"], color=COLORS[name], lw=1.6, label=SHORT[name])
     ax.axvline(TAU, color="0.4", ls=":", lw=1.2)
-    ax.text(TAU + 0.01, ax.get_ylim()[1], r" $\tau=0.25$", va="top", fontsize=15, color="0.3")
-    ax.set_xlabel(r"Gate threshold $\tau$"); ax.set_ylabel("Non-zero MAE (eV)")
+    ax.text(TAU + 0.01, ax.get_ylim()[1], r" $\theta=0.25$", va="top", fontsize=15, color="0.3")
+    ax.set_xlabel(r"Gate threshold $\theta$"); ax.set_ylabel("Non-zero MAE (eV)")
     ax.set_title("(c) Threshold sensitivity")
     ax.legend(frameon=False)
 
@@ -166,8 +166,9 @@ def main():
         ax.text(xi, rc + mc, f"{rc+mc:.3f}", ha="center", va="bottom", fontsize=15)
     ax.set_xticks(x); ax.set_xticklabels(labels)
     ax.set_ylabel("Non-zero MAE (eV)")
-    ax.set_title(r"(d) Error decomposition at $\tau=0.25$")
-    ax.legend(frameon=False)
+    ax.set_title(r"(d) Error decomposition at $\theta=0.25$")
+    # "best" placement put the legend on top of the bars; the upper left of this panel is clear.
+    ax.legend(frameon=False, loc="upper left")
 
     fig.tight_layout()
     OUT.mkdir(exist_ok=True)

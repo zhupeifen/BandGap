@@ -56,8 +56,11 @@ def main():
     ax2.annotate("", xy=(1.78, 0.60), xytext=(1, 1.02),
                  arrowprops=dict(arrowstyle="->", color="0.35", lw=1.6, shrinkB=2,
                                  connectionstyle="arc3,rad=-0.35"))
-    ax2.text(1.62, 0.80, "two-stage\ncorrection", ha="center", va="center",
-             fontsize=11, color="0.35")
+    # Name both things that change between the two red bars. Labelling the arrow "two-stage
+    # correction" credited the pipeline with a reduction the paper attributes mostly to descriptor
+    # enrichment (the feature-held-fixed Castelli step is 0.651 to 0.595 eV, not 1.013 to 0.585).
+    ax2.text(1.5, 1.14, "enriched features + two-stage pipeline", ha="center", va="center",
+             fontsize=9.5, color="0.35")
 
     # ---- (b) mechanism ----
     axr.patch.set_alpha(0)
@@ -76,8 +79,11 @@ def main():
     axr.set_xlim(-6, 116); axr.set_ylim(0.95, 1.72)
     axr.set_xlabel("Fractional-formula share (%)")
     axr.set_ylabel("Grouped/random MAE ratio")
-    axr.set_title("(b) Fractional formulas flag split sensitivity")
-    axr.text(55, 1.10, r"Spearman $\rho = 0.85$", fontsize=14, color=PURPLE, fontweight="bold")
+    axr.set_title("(b) Exploratory: fractional formulas and split sensitivity")
+    # The correlation alone read as an established result; the sample size and exact test belong
+    # beside it, as they are in the manuscript.
+    axr.text(45, 1.34, r"Spearman $\rho = 0.85$", fontsize=14, color=PURPLE, fontweight="bold")
+    axr.text(45, 1.27, r"$n = 6$, exact $p = 0.067$", fontsize=11, color=PURPLE)
 
     fig.tight_layout()
     OUT.mkdir(exist_ok=True)
